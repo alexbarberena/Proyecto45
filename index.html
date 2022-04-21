@@ -1,0 +1,193 @@
+<!DOCTYPE html><html><head>
+    <script src="p5.js"></script>
+    <script src="p5.dom.min.js"></script>
+    <script src="p5.sound.min.js"></script>
+    <script src="p5.play.js"></script>
+<script src="./p5.play.js"></script>
+
+
+<script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-firestore.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#config-web-app -->
+
+
+
+
+
+
+<style>
+  body {font-family: Arial, Helvetica, sans-serif;}
+  * {box-sizing: border-box;}
+  
+  /* Button used to open the chat form - fixed at the bottom of the page */
+  .open-button {
+    background-color: #555;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    width: 280px;
+  }
+  
+  /* The popup chat - hidden by default */
+  .chat-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+  }
+  
+  /* Add styles to the form container */
+  .form-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+  }
+  
+  /* Full-width textarea */
+  .form-container textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+    resize: none;
+    min-height: 200px;
+  }
+  
+  /* When the textarea gets focus, do something */
+  .form-container textarea:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+  
+  /* Set a style for the submit/send button */
+  .form-container .btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+  }
+  
+  /* Add a red background color to the cancel button */
+  .form-container .cancel {
+    background-color: red;
+  }
+  
+  /* Add some hover effects to buttons */
+  .form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+  }
+  </style>
+
+
+<script type="module">
+
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBeRi4Xwio1gLuVk1Y4LfQ6oe0HoF1BqOg",
+  authDomain: "mario-bec31.firebaseapp.com",
+  databaseURL: "https://mario-bec31-default-rtdb.firebaseio.com",
+  projectId: "mario-bec31",
+  storageBucket: "mario-bec31.appspot.com",
+  messagingSenderId: "574543307193",
+  appId: "1:574543307193:web:36903f78d0086184439668"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+                    
+
+
+
+
+
+/*
+var db2;
+
+db2=firebase.firestore();
+
+db2.collection("mensajes").doc("LA").set({
+    name: "Los Angeles",
+    state: "CA",
+    country: "USA"
+})
+
+*/
+
+</script>
+
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8">
+
+  </head>
+  <body>
+
+    <button class="open-button" onclick="openForm()">Chat</button>
+
+<div class="chat-popup" id="myForm">
+  <form action="/action_page.php" class="form-container">
+    <h1>Chat</h1>
+
+    <label for="msg"><b>Mensajes</b></label>
+    <textarea id="id1" placeholder="Type message.." name="msg" required></textarea>
+
+    <label for="fname">Mensaje:</label><br>
+    <input type="text" id="mensaje_enviar" name="mensaje_enviar"><br>
+
+    <button type="button" class="btn" onclick="add_mensaje()" >Send</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+
+
+function add_mensaje()
+{
+
+  var Entry = firebase.database().ref('mensajes');
+                    
+                    var mensaje = document.getElementById("mensaje_enviar").value;
+
+                    Entry.push(mensaje).then(function(data){
+                        //window.location.href = 'entry.html?id='+data.getKey()
+                        console.log("lo hizo");
+                    }).catch(function(error){
+                        alert(error);
+                        console.error(error);
+                    })
+
+
+
+}
+
+
+</script>  
+
+
+      <script src="sketch.js"></script>
+  
+
+</body></html>
